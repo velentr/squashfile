@@ -647,9 +647,9 @@ impl DirInode {
 }
 
 struct DirIndex {
-    index: u32,
-    start_block: u32,
-    name: Vec<u8>,
+    _index: u32,
+    _start_block: u32,
+    _name: Vec<u8>,
 }
 
 impl DirIndex {
@@ -663,9 +663,9 @@ impl DirIndex {
         f.read_exact(&mut name[..])?;
 
         return Ok(DirIndex {
-            index,
-            start_block,
-            name,
+            _index: index,
+            _start_block: start_block,
+            _name: name,
         });
     }
 }
@@ -677,7 +677,7 @@ struct LDirInode {
     parent_inode: u32,
     offset: u16,
     _xattr: u32,
-    index: Vec<DirIndex>,
+    _index: Vec<DirIndex>,
 }
 
 impl LDirInode {
@@ -702,7 +702,7 @@ impl LDirInode {
             parent_inode,
             offset,
             _xattr: xattr,
-            index,
+            _index: index,
         });
     }
 
