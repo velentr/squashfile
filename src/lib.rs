@@ -394,14 +394,6 @@ impl Inode {
             inode: self,
         };
     }
-
-    fn is_dir(&self) -> bool {
-        return match self.inode_type {
-            InodeType::Dir(_) => true,
-            InodeType::LDir(_) => true,
-            _ => false,
-        };
-    }
 }
 
 struct IpcInode {
