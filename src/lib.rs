@@ -1528,4 +1528,18 @@ mod tests {
         let bar = sq.getmember(Path::new("./bar.txt")).unwrap();
         assert_eq!(bar.linkname().unwrap(), b"foo.txt");
     }
+
+    #[test]
+    fn check_flags() {
+        let sq = Squashfile::open("tests/fragment.squashfs").unwrap();
+        assert!(!sq.has_compressed_inodes());
+        assert!(!sq.has_compressed_data());
+        assert!(!sq.has_compressed_id_table());
+        assert!(!sq.has_compressed_fragments());
+        assert!(!sq.always_fragment());
+        assert!(sq.data_is_deduplicated());
+        assert!(!sq.has_compressor_options());
+        assert!(sq.has_fragments());
+        assert!(sq.has_export_table());
+    }
 }
