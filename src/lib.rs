@@ -215,7 +215,7 @@ struct SuperBlock {
     root_inode: u64,
     bytes_used: u64,
     id_table_start: u64,
-    xattr_id_table_start: u64,
+    _xattr_id_table_start: u64,
     inode_table_start: u64,
     directory_table_start: u64,
     fragment_table_start: u64,
@@ -281,7 +281,7 @@ impl SuperBlock {
             root_inode,
             bytes_used,
             id_table_start,
-            xattr_id_table_start,
+            _xattr_id_table_start: xattr_id_table_start,
             inode_table_start,
             directory_table_start,
             fragment_table_start,
@@ -417,7 +417,7 @@ impl IpcInode {
 
 struct LIpcInode {
     _nlink: u32,
-    xattr: u32,
+    _xattr: u32,
 }
 
 impl LIpcInode {
@@ -427,7 +427,7 @@ impl LIpcInode {
 
         return Ok(LIpcInode {
             _nlink: nlink,
-            xattr,
+            _xattr: xattr,
         });
     }
 }
@@ -452,7 +452,7 @@ impl DevInode {
 struct LDevInode {
     _nlink: u32,
     rdev: u32,
-    xattr: u32,
+    _xattr: u32,
 }
 
 impl LDevInode {
@@ -464,7 +464,7 @@ impl LDevInode {
         return Ok(LDevInode {
             _nlink: nlink,
             rdev,
-            xattr,
+            _xattr: xattr,
         });
     }
 }
@@ -493,7 +493,7 @@ impl SymlinkInode {
 struct LSymlinkInode {
     _nlink: u32,
     symlink: Vec<u8>,
-    xattr: u32,
+    _xattr: u32,
 }
 
 impl LSymlinkInode {
@@ -509,7 +509,7 @@ impl LSymlinkInode {
         return Ok(LSymlinkInode {
             _nlink: nlink,
             symlink,
-            xattr,
+            _xattr: xattr,
         });
     }
 }
@@ -557,7 +557,7 @@ struct LRegInode {
     _nlink: u32,
     fragment: u32,
     offset: u32,
-    xattr: u32,
+    _xattr: u32,
     block_list: Vec<u32>,
 }
 
@@ -589,7 +589,7 @@ impl LRegInode {
             _nlink: nlink,
             fragment,
             offset,
-            xattr,
+            _xattr: xattr,
             block_list,
         });
     }
@@ -684,7 +684,7 @@ struct LDirInode {
     start_block: u32,
     parent_inode: u32,
     offset: u16,
-    xattr: u32,
+    _xattr: u32,
     index: Vec<DirIndex>,
 }
 
@@ -709,7 +709,7 @@ impl LDirInode {
             start_block,
             parent_inode,
             offset,
-            xattr,
+            _xattr: xattr,
             index,
         });
     }
