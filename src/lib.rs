@@ -912,7 +912,9 @@ impl<R: Read + Seek> Squashfile<R> {
     }
 
     pub fn has_compressed_id_table(&self) -> bool {
-        return !self.sb.flags.noid();
+        // note that uncompressed inodes implies uncompressed id tables in
+        // squashfs-tools; linux does not use this flag
+        return !self.sb.flags.noid() && !self.sb.flags.noi();
     }
 
     /// Get a list of all UIDs/GIDs present in the archive.
