@@ -1393,6 +1393,21 @@ impl Squashinfo {
             _ => None,
         }
     }
+
+    /// Get the system-specific device number
+    ///
+    /// If the inode is a character or block device, return the device
+    /// number of the inode. For all other inode types, return `None`.
+    ///
+    /// On Linux, this is composed of the major and minor number:
+    /// `device_number = (major << 8) | minor`.
+    pub fn device_number(&self) -> Option<u32> {
+        match &self.inode.inode_type {
+            InodeType::Blkdev(d) | InodeType::Chrdev(d) => Some(d.rdev),
+            InodeType::LBlkdev(d) | InodeType::LChrdev(d) => Some(d.rdev),
+            _ => None,
+        }
+    }
 }
 
 #[cfg(test)]
