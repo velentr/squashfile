@@ -1549,4 +1549,17 @@ mod tests {
         assert!(sq.has_fragments());
         assert!(sq.has_export_table());
     }
+
+    #[test]
+    fn check_devices() {
+        let mut sq = Squashfile::open("tests/devices.squashfs").unwrap();
+        let block = sq.getmember(Path::new("./block.dev")).unwrap();
+        assert_eq!(block.typ, Type::BlockDevice);
+        assert_eq!(block.device_number().unwrap(), 0x0203);
+        let chr = sq.getmember(Path::new("./char.dev")).unwrap();
+        assert_eq!(chr.typ, Type::CharDevice);
+        assert_eq!(chr.device_number().unwrap(), 0x0405);
+        let file = sq.getmember(Path::new("./file.txt")).unwrap();
+        assert_eq!(file.device_number(), None);
+    }
 }
