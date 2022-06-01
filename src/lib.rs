@@ -1517,4 +1517,13 @@ mod tests {
         let cnt = v.read(&mut buf).unwrap();
         assert_eq!(cnt, 0);
     }
+
+    #[test]
+    fn check_symlink() {
+        let mut sq = Squashfile::open("tests/symlink.squashfs").unwrap();
+        let foo = sq.getmember(Path::new("./foo.txt")).unwrap();
+        assert_eq!(foo.linkname(), None);
+        let bar = sq.getmember(Path::new("./bar.txt")).unwrap();
+        assert_eq!(bar.linkname().unwrap(), b"foo.txt");
+    }
 }
