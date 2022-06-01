@@ -1385,7 +1385,7 @@ impl Squashinfo {
     ///
     /// This will return the size (in bytes) of a regular file inside
     /// the archive. For non-regular files (eg symlinks, directories,
-    /// etc), this will return None.
+    /// etc), this will return `None`.
     pub fn size(&self) -> Option<u64> {
         match &self.inode.inode_type {
             InodeType::Reg(f) => Some(f.file_size as u64),
