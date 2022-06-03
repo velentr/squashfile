@@ -1593,4 +1593,15 @@ mod tests {
         let sq = Squashfile::open("tests/count.squashfs").unwrap();
         assert_eq!(sq.num_entries(), 7);
     }
+
+    #[test]
+    fn check_inode_number() {
+        let mut sq = Squashfile::open("tests/symlink.squashfs").unwrap();
+        let bar = sq.getmember(Path::new("./bar.txt")).unwrap();
+        assert_eq!(bar.inode_number(), 1);
+        let foo = sq.getmember(Path::new("./foo.txt")).unwrap();
+        assert_eq!(foo.inode_number(), 2);
+        let root = sq.getmember(Path::new("./")).unwrap();
+        assert_eq!(root.inode_number(), 3);
+    }
 }
