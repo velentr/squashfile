@@ -1420,6 +1420,19 @@ impl Squashinfo {
             _ => None,
         }
     }
+
+    /// Return the inode number for this squashinfo
+    ///
+    /// The inode number is an opaque integer value that is unique per
+    /// entry in a well-formed archive. Multiple `Squashinfo` structures may
+    /// share the same inode number (eg hard links), in which case the entries
+    /// should be identical.
+    ///
+    /// Note that this uniqueness is not checked and may not be valid on
+    /// malformed squashfs archives.
+    pub fn inode_number(&self) -> u32 {
+        return self.inode.inode_number;
+    }
 }
 
 #[cfg(test)]
