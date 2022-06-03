@@ -1574,4 +1574,10 @@ mod tests {
         let file = sq.getmember(Path::new("./file.txt")).unwrap();
         assert_eq!(file.device_number(), None);
     }
+
+    #[test]
+    fn check_inode_count() {
+        let sq = Squashfile::open("tests/count.squashfs").unwrap();
+        assert_eq!(sq.num_entries(), 7);
+    }
 }
