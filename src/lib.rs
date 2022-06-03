@@ -219,7 +219,7 @@ struct SuperBlock {
     inode_table_start: u64,
     directory_table_start: u64,
     fragment_table_start: u64,
-    lookup_table_start: u64,
+    _lookup_table_start: u64,
 }
 
 impl SuperBlock {
@@ -285,7 +285,7 @@ impl SuperBlock {
             inode_table_start,
             directory_table_start,
             fragment_table_start,
-            lookup_table_start,
+            _lookup_table_start: lookup_table_start,
         });
     }
 }
