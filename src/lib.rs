@@ -545,7 +545,6 @@ impl RegInode {
 struct LRegInode {
     start_block: u64,
     file_size: u64,
-    sparse: u64,
     _nlink: u32,
     fragment: u32,
     offset: u32,
@@ -557,7 +556,9 @@ impl LRegInode {
     fn from<R: Read>(f: &mut R, block_size: u32) -> Result<LRegInode> {
         let start_block = read_le64(f)?;
         let file_size = read_le64(f)?;
-        let sparse = read_le64(f)?;
+        // this is used by linux for sparse file accounting and is not
+        // necessary for correctly parsing the archive
+        let _sparse_bytes = read_le64(f)?;
         let nlink = read_le32(f)?;
         let fragment = read_le32(f)?;
         let offset = read_le32(f)?;
@@ -577,7 +578,6 @@ impl LRegInode {
         return Ok(LRegInode {
             start_block,
             file_size,
-            sparse,
             _nlink: nlink,
             fragment,
             offset,
