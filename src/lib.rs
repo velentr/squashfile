@@ -1046,6 +1046,18 @@ impl<R: Read + Seek> Squashfile<R> {
 
         return Ok(SquashIter { sq: self, stack });
     }
+
+    /// Get the number of entries in the squashfile
+    ///
+    /// This returns the total number of inodes that are stored inside the file,
+    /// including the root directory, but not any `..` directory entries (since
+    /// these are represented implicitly). The inode count is stored in the
+    /// superblock during squashfs creation, so it will not necessarily match
+    /// the number of entries that can be iterated over with `walk()` in the
+    /// case of a malformed superblock.
+    pub fn num_entries(&self) -> u32 {
+        return self.sb.inodes;
+    }
 }
 
 struct FragmentEntry {
