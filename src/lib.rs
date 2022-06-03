@@ -592,7 +592,7 @@ struct DirInode {
     _nlink: u32,
     file_size: u16,
     offset: u16,
-    parent_inode: u32,
+    _parent_inode: u32,
 }
 
 impl DirInode {
@@ -608,7 +608,7 @@ impl DirInode {
             _nlink: nlink,
             file_size,
             offset,
-            parent_inode,
+            _parent_inode: parent_inode,
         });
     }
 
@@ -674,7 +674,7 @@ struct LDirInode {
     _nlink: u32,
     file_size: u32,
     start_block: u32,
-    parent_inode: u32,
+    _parent_inode: u32,
     offset: u16,
     _xattr: u32,
     _index: Vec<DirIndex>,
@@ -699,7 +699,7 @@ impl LDirInode {
             _nlink: nlink,
             file_size,
             start_block,
-            parent_inode,
+            _parent_inode: parent_inode,
             offset,
             _xattr: xattr,
             _index: index,
